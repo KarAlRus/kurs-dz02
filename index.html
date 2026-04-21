@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мини-анкета</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-clipboard-list"></i> Мини-анкета</h1>
+            <p class="subtitle">Пожалуйста, заполните все поля анкеты</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-user-edit"></i> Анкетные данные</h2>
+                    <p class="card-subtitle">Все поля обязательны для заполнения</p>
+                </div>
+                
+                <form id="questionnaireForm">
+                    <div id="questionsContainer">
+                        <!-- Вопросы будут загружены динамически -->
+                        <div class="loading">
+                            <i class="fas fa-spinner fa-spin"></i> Загрузка вопросов...
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" id="submitBtn" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Отправить анкету
+                        </button>
+                        <button type="button" id="resetBtn" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Очистить форму
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card" id="responseCard" style="display: none;">
+                <div class="card-header success">
+                    <h2><i class="fas fa-check-circle"></i> Спасибо!</h2>
+                </div>
+                <div class="card-body">
+                    <p>Ваши ответы успешно отправлены. Благодарим за участие!</p>
+                    <div class="success-details">
+                        <p><i class="fas fa-info-circle"></i> Вы можете заполнить анкету снова, нажав кнопку ниже.</p>
+                    </div>
+                    <button type="button" id="newFormBtn" class="btn btn-success">
+                        <i class="fas fa-plus"></i> Заполнить новую анкету
+                    </button>
+                </div>
+            </div>
+
+            <div class="card info-card">
+                <div class="card-header info">
+                    <h2><i class="fas fa-info-circle"></i> Информация</h2>
+                </div>
+                <div class="card-body">
+                    <p>Это простое приложение "Мини-анкета" демонстрирует работу с backend API и frontend интерфейсом.</p>
+                    <ul>
+                        <li><strong>Backend:</strong> Python Flask с двумя API endpoints</li>
+                        <li><strong>Frontend:</strong> HTML, CSS, JavaScript</li>
+                        <li><strong>Функционал:</strong> Загрузка вопросов, отправка ответов, отображение подтверждения</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Мини-анкета &copy; 2023 | Backend: Python Flask | Frontend: HTML/JS</p>
+            <div class="footer-links">
+                <a href="#" id="viewAnswersBtn"><i class="fas fa-database"></i> Просмотреть сохраненные ответы</a>
+                <a href="/health" target="_blank"><i class="fas fa-heartbeat"></i> Проверить здоровье сервера</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Модальное окно для просмотра ответов -->
+    <div id="answersModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-database"></i> Сохраненные ответы</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <pre id="answersData">Загрузка...</pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="closeModalBtn">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
