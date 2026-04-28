@@ -44,12 +44,17 @@ function renderQuestions(questions) {
     questions.forEach((question, index) => {
         const questionElement = document.createElement('div');
         questionElement.className = 'question-item';
+        let hintHtml = '';
+        if (question.description) {
+            hintHtml = `<div class="hint"><i class="fas fa-info-circle"></i> ${question.description}</div>`;
+        }
         questionElement.innerHTML = `
             <label class="question-label ${question.required ? 'required' : ''}">
                 <i class="fas fa-question-circle"></i>
                 ${question.label}
             </label>
             ${renderQuestionInput(question)}
+            ${hintHtml}
         `;
         questionsContainer.appendChild(questionElement);
     });
@@ -57,22 +62,27 @@ function renderQuestions(questions) {
 
 // Генерация HTML для разных типов полей
 function renderQuestionInput(question) {
-    const { id, type, required, options, min, max } = question;
+    const { id, type, required, options, min, max, pattern, maxlength, description } = question;
     
     switch (type) {
         case 'text':
-            return `<input type="text" 
-                           id="${id}" 
-                           name="${id}" 
-                           class="form-control" 
+            let attrs = '';
+            if (pattern) attrs += ` pattern="${pattern}"`;
+            if (maxlength) attrs += ` maxlength="${maxlength}"`;
+            if (description) attrs += ` title="${description}"`;
+            return `<input type="text"
+                           id="${id}"
+                           name="${id}"
+                           class="form-control"
                            ${required ? 'required' : ''}
+                           ${attrs}
                            placeholder="Введите ${question.label.toLowerCase()}">`;
         
         case 'number':
-            return `<input type="number" 
-                           id="${id}" 
-                           name="${id}" 
-                           class="form-control" 
+            return `<input type="number"
+                           id="${id}"
+                           name="${id}"
+                           class="form-control"
                            ${required ? 'required' : ''}
                            ${min ? `min="${min}"` : ''}
                            ${max ? `max="${max}"` : ''}
@@ -88,10 +98,10 @@ function renderQuestionInput(question) {
                     </select>`;
         
         default:
-            return `<input type="text" 
-                           id="${id}" 
-                           name="${id}" 
-                           class="form-control" 
+            return `<input type="text"
+                           id="${id}"
+                           name="${id}"
+                           class="form-control"
                            ${required ? 'required' : ''}>`;
     }
 }

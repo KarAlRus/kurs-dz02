@@ -42,6 +42,15 @@ QUESTIONS = [
         "label": "Специальность",
         "type": "text",
         "required": True
+    },
+    {
+        "id": "inn",
+        "label": "ИНН",
+        "type": "text",
+        "required": True,
+        "pattern": "\\d{12}",
+        "maxlength": 12,
+        "description": "12 цифр"
     }
 ]
 
@@ -57,6 +66,12 @@ def save_answers():
         data = request.get_json()
         if not data:
             return jsonify({"error": "No data provided"}), 400
+        
+        # Валидация ИНН (12 цифр)
+        if 'inn' in data:
+            inn = data['inn']
+            if not isinstance(inn, str) or not inn.isdigit() or len(inn) != 12:
+                return jsonify({"error": "ИНН должен состоять из 12 цифр"}), 400
         
         # Генерируем уникальный ID на основе timestamp
         import time

@@ -412,3 +412,17 @@ footer {
     align-items: center;
     gap: 5px;
 }
+
+/* Подсказки для полей */
+.hint {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.hint i {
+    color: #3498db;
+}
